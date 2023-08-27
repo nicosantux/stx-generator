@@ -1,0 +1,41 @@
+{
+  "name": "stx-generator",
+  "version": "0.0.0",
+  "main": "./build/src/index.js",
+  "author": {
+    "name": "Nicolás Santuccio",
+    "email": "nico.santuccio@gmail.com"
+  },
+  "description": "",
+  "repository": "",
+  "keywords": [],
+  "license": "ISC",
+  "bin": {
+    "stx-generator": "./build/src/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "commitlint": "commitlint --edit",
+    "dev": "tsc -w",
+    "format": "prettier --write .",
+    "link-cli": "pnpm uninstall --global stx-generator || true && pnpm link --global",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix --ext .js,.ts",
+    "prepare": "husky install"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "17.7.1",
+    "@commitlint/config-conventional": "17.7.0",
+    "@types/node": "20.5.6",
+    "@typescript-eslint/eslint-plugin": "6.4.1",
+    "@typescript-eslint/parser": "6.4.1",
+    "eslint": "8.48.0",
+    "eslint-config-prettier": "9.0.0",
+    "eslint-plugin-import": "2.28.1",
+    "eslint-plugin-node": "11.1.0",
+    "eslint-plugin-promise": "6.1.1",
+    "husky": "8.0.3",
+    "prettier": "3.0.2",
+    "typescript": "5.2.2"
+  }
+}
