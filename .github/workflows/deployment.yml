@@ -1,0 +1,48 @@
+name: Deployment
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+    types: ['opened', 'synchronize']
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
+
+jobs:
+  lint:
+    name: 💅 Lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🎯 Checkout
+        uses: actions/checkout@v3
+
+      - name: 🔧 Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+          run_install: |
+            - recursive: true
+              args: [--frozen-lockfile, --strict-peer-dependencies]
+      - name: 💅 Lint
+        run: pnpm lint
+
+  build:
+    name: 🏭 Build
+    needs: [lint]
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🎯 Checkout
+        uses: actions/checkout@v3
+
+      - name: 🔧 Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+          run_install: |
+            - recursive: true
+              args: [--frozen-lockfile, --strict-peer-dependencies]
+      - name: 🏭 Build
+        run: pnpm build
