@@ -1,0 +1,11 @@
+.github
+.husky
+src
+.editorconfig
+.eslintignore
+.eslintrc.json
+.gitignore
+.prettierignore
+.prettierrc
+commitlint.config.cjs
+tsconfig.json
