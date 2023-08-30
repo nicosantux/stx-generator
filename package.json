@@ -1,6 +1,6 @@
 {
   "name": "stx-generator",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "type": "module",
   "main": "./build/src/index.js",
   "author": {
@@ -44,4 +44,3 @@
     "picocolors": "1.0.0"
   }
 }
-
