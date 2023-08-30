@@ -4,6 +4,14 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+dependencies:
+  '@clack/prompts':
+    specifier: 0.7.0
+    version: 0.7.0
+  picocolors:
+    specifier: 1.0.0
+    version: 1.0.0
+
 devDependencies:
   '@commitlint/cli':
     specifier: 17.7.1
@@ -73,6 +81,23 @@ packages:
       chalk: 2.4.2
       js-tokens: 4.0.0
     dev: true
+
+  /@clack/core@0.3.3:
+    resolution: {integrity: sha512-5ZGyb75BUBjlll6eOa1m/IZBxwk91dooBWhPSL67sWcLS0zt9SnswRL0l26TVdBhb0wnWORRxUn//uH6n4z7+A==}
+    dependencies:
+      picocolors: 1.0.0
+      sisteransi: 1.0.5
+    dev: false
+
+  /@clack/prompts@0.7.0:
+    resolution: {integrity: sha512-0MhX9/B4iL6Re04jPrttDm+BsP8y6mS7byuv0BvXgdXhbV5PdlsHt55dvNsuBCPZ7xq1oTAOOuotR9NFbQyMSA==}
+    dependencies:
+      '@clack/core': 0.3.3
+      picocolors: 1.0.0
+      sisteransi: 1.0.5
+    dev: false
+    bundledDependencies:
+      - is-unicode-supported
 
   /@commitlint/cli@17.7.1:
     resolution: {integrity: sha512-BCm/AT06SNCQtvFv921iNhudOHuY16LswT0R3OeolVGLk8oP+Rk9TfQfgjH7QPMjhvp76bNqGFEcpKojxUNW1g==}
@@ -2143,6 +2168,10 @@ packages:
     engines: {node: '>=8'}
     dev: true
 
+  /picocolors@1.0.0:
+    resolution: {integrity: sha512-1fygroTLlHu66zi26VoTDv8yRgm0Fccecssto+MhsZ0D/DGW2sm8E8AjW7NU5VVTRt5GxbeZ5qBuJr+HyLYkjQ==}
+    dev: false
+
   /picomatch@2.3.1:
     resolution: {integrity: sha512-JU3teHTNjmE2VCGFzuY8EXzCDVwEqB2a8fsIvwaStHhAWJEeVd1o1QD80CU6+ZdEXXSLbSsuLwJjkCBWqRQUVA==}
     engines: {node: '>=8.6'}
@@ -2340,6 +2369,10 @@ packages:
   /signal-exit@3.0.7:
     resolution: {integrity: sha512-wnD2ZE+l+SPC/uoS0vXeE9L1+0wuaMqKlfz9AMUo38JsyLSBWSFcHR1Rri62LZc12vLr1gb3jl7iwQhgwpAbGQ==}
     dev: true
+
+  /sisteransi@1.0.5:
+    resolution: {integrity: sha512-bLGGlR1QxBcynn2d5YmDX4MGjlZvy2MRBDRNHLJ8VI6l6+9FUiyTFNJ0IveOSP0bcXgVDPRcfGqA0pjaqUpfVg==}
+    dev: false
 
   /slash@3.0.0:
     resolution: {integrity: sha512-g9Q1haeby36OSStwb4ntCGGGaKsaVSjQ68fBxoQcutl5fS1vuY18H3wSt3jFyFtrkx+Kz0V1G85A4MyAdDMi2Q==}

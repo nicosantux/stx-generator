@@ -1,6 +1,7 @@
 {
   "name": "stx-generator",
   "version": "0.0.0",
+  "type": "module",
   "main": "./build/src/index.js",
   "author": {
     "name": "Nicolás Santuccio",
@@ -37,5 +38,10 @@
     "husky": "8.0.3",
     "prettier": "3.0.3",
     "typescript": "5.2.2"
+  },
+  "dependencies": {
+    "@clack/prompts": "0.7.0",
+    "picocolors": "1.0.0"
   }
 }
+
