@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
+    "baseUrl": ".",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "lib": ["ESNext"],
@@ -14,5 +15,5 @@
     "strict": true,
     "target": "es2022"
   },
-  "include": ["src"]
+  "include": ["src/**/*", "src/**/*.json"]
 }
