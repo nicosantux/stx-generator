@@ -42,7 +42,7 @@ export const nextTs = async () => {
     addLintAndFormatScripts()
   }
 
-  addGeneratorFiles('next-ts')
+  addGeneratorFiles('next-ts', tailwind)
 
   await installDependencies({ generator: 'next-ts', packageManager, tailwind })
 
