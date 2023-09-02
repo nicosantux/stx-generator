@@ -55,7 +55,7 @@ export const GENERATORS_FILES: Record<
     '.editorconfig': { destination: '', file: editorconfig, json: false },
   },
   vscode: {
-    '.extensions.json': { destination: '.vscode/extensions.json', file: extensions, json: true },
-    '.settings.json': { destination: '.vscode/settings.json', file: settings, json: true },
+    'extensions.json': { destination: '.vscode', file: extensions, json: true },
+    'settings.json': { destination: '.vscode', file: settings, json: true },
   },
 }
