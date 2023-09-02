@@ -1,11 +1,10 @@
 import fs from 'node:fs/promises'
-import path from 'node:path'
 
 import pc from 'picocolors'
 import { confirm, outro } from '@clack/prompts'
 
-import { extensions, settings } from '../templates/index.js'
-import { handleCancelPrompt, writeJSON } from '../utils/index.js'
+import { extensions } from '../templates/index.js'
+import { addGeneratorFiles, handleCancelPrompt } from '../utils/index.js'
 
 export const vscode = async () => {
   const tailwind = handleCancelPrompt(
@@ -21,8 +20,7 @@ export const vscode = async () => {
 
   await fs.mkdir('.vscode', { recursive: true })
 
-  await writeJSON(path.join(process.cwd(), '.vscode/extensions.json'), extensions)
-  await writeJSON(path.join(process.cwd(), '.vscode/settings.json'), settings)
+  addGeneratorFiles('vscode')
 
   outro(
     pc.bgCyan(
