@@ -7,12 +7,28 @@ import { GENERATORS_FILES } from '../constants/generator.constant.js'
 
 import { writeJSON } from './json.util.js'
 
-export const addGeneratorFiles = async (generator: GeneratorFiles) => {
+export const addGeneratorFiles = async (generator: GeneratorFiles, tailwind: boolean = false) => {
   const files = GENERATORS_FILES[generator]
 
-  Object.entries(files).map(([filename, { destination, file, json }]) =>
+  Object.entries(files).map(([filename, { destination, file, json }]) => {
+    if (isESLintConfig(file) && tailwind) {
+      file.extends.push('plugin:tailwindcss/recommended')
+    }
+
+    if (isVscodeExtensions(file) && tailwind) {
+      file.recommendations.push('bradlc.vscode-tailwindcss')
+    }
+
     json
       ? writeJSON(path.join(process.cwd(), destination, filename), file)
-      : fs.writeFile(path.join(process.cwd(), destination, filename), file as string),
-  )
+      : fs.writeFile(path.join(process.cwd(), destination, filename), file as string)
+  })
+}
+
+const isESLintConfig = (file: unknown): file is { extends: string[] } => {
+  return !!file && typeof file === 'object' && 'extends' in file
+}
+
+const isVscodeExtensions = (file: unknown): file is { recommendations: string[] } => {
+  return !!file && typeof file === 'object' && 'recommendations' in file
 }

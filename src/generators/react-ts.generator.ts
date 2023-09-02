@@ -11,7 +11,6 @@ import {
   handleCancelPrompt,
   installDependencies,
 } from '../utils/index.js'
-import { eslintReact } from '../templates/index.js'
 
 export const reactTs = async () => {
   let packageManager = await getProjectPackageManager()
@@ -39,15 +38,11 @@ export const reactTs = async () => {
     }),
   )
 
-  if (tailwind) {
-    eslintReact.extends.push('plugin:tailwindcss/recommended')
-  }
-
   if (addScripts) {
     addLintAndFormatScripts()
   }
 
-  addGeneratorFiles('react-ts')
+  addGeneratorFiles('react-ts', tailwind)
 
   await installDependencies({ generator: 'react-ts', packageManager, tailwind })
 
