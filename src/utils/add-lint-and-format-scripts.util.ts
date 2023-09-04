@@ -1,13 +1,7 @@
-import path from 'node:path'
-
-import { readJSON, writeJSON } from './index.js'
+import { execCmd } from './index.js'
 
 export const addLintAndFormatScripts = async () => {
-  const packageJSON = await readJSON(path.join(process.cwd(), 'package.json'))
-
-  packageJSON.scripts.lint = 'eslint .'
-  packageJSON.scripts['lint:fix'] = 'eslint . --fix --ext .tsx,.ts,.js,.cjs,.mjs'
-  packageJSON.scripts.format = 'prettier --write .'
-
-  writeJSON(path.join(process.cwd(), 'package.json'), packageJSON)
+  await execCmd('npm pkg set scripts.lint="eslint ."')
+  await execCmd('npm pkg set scripts.lint:fix="eslint . --fix --ext .tsx,.ts,.jsx,.js,.cjs,.mjs"')
+  await execCmd('npm pkg set scripts.format="prettier --write ."')
 }
