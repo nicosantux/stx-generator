@@ -1,3 +1,5 @@
+export const huskyDependencies = ['husky', '@commitlint/cli', '@commitlint/config-conventional']
+
 export const nextDependencies = [
   '@typescript-eslint/eslint-plugin',
   '@typescript-eslint/parser',
