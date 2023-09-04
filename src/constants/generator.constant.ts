@@ -1,6 +1,7 @@
-import type { Generator, GeneratorFiles, GeneratorLintDeps } from '../types/generator.type.js'
+import type { Generator, GeneratorLintDeps } from '../types/generator.type.js'
 
 import {
+  commitlint,
   editorconfig,
   eslintIgnore,
   eslintNext,
@@ -11,11 +12,16 @@ import {
   prettierrc,
   settings,
 } from '../templates/index.js'
-import { nextDependencies, nodeDependencies, reactDependencies } from '../dependencies/index.js'
+import {
+  huskyDependencies,
+  nextDependencies,
+  nodeDependencies,
+  reactDependencies,
+} from '../dependencies/index.js'
 
 export const GENERATORS_OPTIONS: Record<Generator, string> = {
   'github-actions': 'Github Actions',
-  husky: 'Huksy',
+  husky: 'Husky',
   'next-ts': 'Next.js Typescript',
   'node-ts': 'Node.js Tyepscript',
   'react-ts': 'React.js Typescript',
@@ -23,16 +29,20 @@ export const GENERATORS_OPTIONS: Record<Generator, string> = {
 }
 
 export const GENERATORS_LINT_DEPENDENCIES: Record<GeneratorLintDeps, string[]> = {
+  husky: huskyDependencies,
   'next-ts': nextDependencies,
   'node-ts': nodeDependencies,
   'react-ts': reactDependencies,
 }
 
 export const GENERATORS_FILES: Record<
-  GeneratorFiles,
+  Generator,
   Record<string, { destination: string; file: unknown; json: boolean }>
 > = {
   'github-actions': {},
+  husky: {
+    '.commitlintrc.json': { destination: '', file: commitlint, json: true },
+  },
   'next-ts': {
     '.prettierrc': { destination: '', file: prettierrc, json: true },
     '.prettierignore': { destination: '', file: prettierIgnore, json: false },
