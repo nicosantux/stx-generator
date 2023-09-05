@@ -7,15 +7,15 @@ node_modules`
 export const eslintNext = {
   env: {
     browser: true,
-    es2022: true,
+    es2023: true,
     node: true,
   },
   extends: [
-    'eslint-config-prettier',
     'eslint:recommended',
-    'plugin:@typescript-eslint/recommended',
-    'next/core-web-vitals',
     'next',
+    'next/core-web-vitals',
+    'plugin:@typescript-eslint/recommended',
+    'prettier',
   ],
   plugins: ['react', 'import', '@typescript-eslint'],
   parser: '@typescript-eslint/parser',
@@ -64,14 +64,10 @@ export const eslintNext = {
 
 export const eslintNode = {
   env: {
-    es2022: true,
+    es2023: true,
     node: true,
   },
-  extends: [
-    'eslint-config-prettier',
-    'eslint:recommended',
-    'plugin:@typescript-eslint/recommended',
-  ],
+  extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended', 'prettier'],
   plugins: ['import', '@typescript-eslint'],
   parser: '@typescript-eslint/parser',
   parserOptions: {
@@ -109,16 +105,15 @@ export const eslintNode = {
 export const eslintReact = {
   env: {
     browser: true,
-    es2022: true,
-    node: true,
+    es2023: true,
   },
   extends: [
-    'eslint-config-prettier',
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
-    'plugin:react/recommended',
     'plugin:react-hooks/recommended',
+    'plugin:react/recommended',
     'plugin:react/jsx-runtime',
+    'prettier',
   ],
   plugins: ['react', 'import', '@typescript-eslint'],
   parser: '@typescript-eslint/parser',
