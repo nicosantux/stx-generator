@@ -7,8 +7,6 @@ export const nextDependencies = [
   'eslint-config-next',
   'eslint-config-prettier',
   'eslint-plugin-import',
-  'eslint-plugin-node',
-  'eslint-plugin-promise',
   'eslint-plugin-react',
   'eslint-plugin-react-hooks',
   'prettier',
@@ -20,8 +18,6 @@ export const nodeDependencies = [
   'eslint',
   'eslint-config-prettier',
   'eslint-plugin-import',
-  'eslint-plugin-node',
-  'eslint-plugin-promise',
   'prettier',
 ]
 
@@ -31,8 +27,6 @@ export const reactDependencies = [
   'eslint',
   'eslint-config-prettier',
   'eslint-plugin-import',
-  'eslint-plugin-node',
-  'eslint-plugin-promise',
   'eslint-plugin-react',
   'eslint-plugin-react-hooks',
   'prettier',
