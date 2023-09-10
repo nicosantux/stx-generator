@@ -1,40 +1,34 @@
-import type { PackageManger, GeneratorLintDeps } from '../types/index.js'
+import type { PackageManger } from '../types/index.js'
 
 import { spinner as createSpinner } from '@clack/prompts'
 import pc from 'picocolors'
 
-import { GENERATORS_LINT_DEPENDENCIES } from '../constants/index.js'
-
 import { execCmd } from './index.js'
 
 type InstallDependencies = {
-  generator: GeneratorLintDeps
+  dependencies: string[]
   packageManager: PackageManger
-  tailwind?: boolean
+  saveDev?: boolean
 }
 
 export const installDependencies = async ({
-  generator,
+  dependencies,
   packageManager,
-  tailwind = false,
+  saveDev,
 }: InstallDependencies) => {
   const spinner = createSpinner()
 
   const installCmd = packageManager === 'npm' ? 'install' : 'add'
 
-  const tailwindPlugin = tailwind ? 'eslint-plugin-tailwindcss' : ''
-
   spinner.start(`Installing dependencies via ${packageManager}`)
 
   await execCmd(
-    `${packageManager} ${installCmd} -D -E ${GENERATORS_LINT_DEPENDENCIES[generator].join(
-      ' ',
-    )} ${tailwindPlugin}`,
+    `${packageManager} ${installCmd} ${dependencies.join(' ')} -E ${saveDev ? '-D' : ''}`,
   )
 
   spinner.stop(
     `${pc.bgCyan(pc.black(' Dependencies installed: '))}
 ${pc.gray('│')}
-${GENERATORS_LINT_DEPENDENCIES[generator].map((dep) => `${pc.gray('│ ')} ${dep}`).join('\n')}`,
+${dependencies.map((dep) => `${pc.gray('│ ')} ${dep}`).join('\n')}`,
   )
 }

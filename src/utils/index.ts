@@ -1,4 +1,4 @@
-export * from './add-generator-files.util.js'
+export * from './add-file.util.js'
 export * from './add-lint-and-format-scripts.util.js'
 export * from './exec-cmd.util.js'
 export * from './get-project-package-manager.util.js'
