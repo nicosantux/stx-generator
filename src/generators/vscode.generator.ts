@@ -3,8 +3,8 @@ import fs from 'node:fs/promises'
 import pc from 'picocolors'
 import { confirm, outro } from '@clack/prompts'
 
-import { extensions } from '../templates/index.js'
-import { addGeneratorFiles, handleCancelPrompt } from '../utils/index.js'
+import { extensions, settings } from '../templates/index.js'
+import { addFile, handleCancelPrompt } from '../utils/index.js'
 
 export const vscode = async () => {
   const tailwind = handleCancelPrompt(
@@ -20,7 +20,8 @@ export const vscode = async () => {
 
   await fs.mkdir('.vscode', { recursive: true })
 
-  addGeneratorFiles('vscode')
+  await addFile('.vscode/settings.json', settings)
+  await addFile('.vscode/extensions.json', extensions)
 
   outro(
     pc.bgCyan(

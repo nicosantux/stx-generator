@@ -3,14 +3,16 @@ import type { Option, PackageManger } from '../types/index.js'
 import { confirm, select, outro } from '@clack/prompts'
 import pc from 'picocolors'
 
+import { prettierIgnore, prettierrc, eslintIgnore, eslintNext } from '../templates/index.js'
 import { PACKAGE_MANAGER } from '../constants/index.js'
 import {
-  addGeneratorFiles,
+  addFile,
   addLintAndFormatScripts,
   getProjectPackageManager,
   handleCancelPrompt,
   installDependencies,
 } from '../utils/index.js'
+import { nextDependencies } from '../dependencies/index.js'
 
 export const nextTs = async () => {
   let packageManager = await getProjectPackageManager()
@@ -39,12 +41,20 @@ export const nextTs = async () => {
   )
 
   if (addScripts) {
-    addLintAndFormatScripts()
+    await addLintAndFormatScripts()
   }
 
-  addGeneratorFiles('next-ts', tailwind)
+  if (tailwind) {
+    eslintNext.extends.push('plugin:tailwindcss/recommended')
+    nextDependencies.push('eslint-plugin-tailwindcss')
+  }
 
-  await installDependencies({ generator: 'next-ts', packageManager, tailwind })
+  await addFile('.prettierrc.json', prettierrc)
+  await addFile('.prettierignore', prettierIgnore)
+  await addFile('.eslintrc.json', eslintNext)
+  await addFile('.eslintIgnore', eslintIgnore)
+
+  await installDependencies({ dependencies: nextDependencies, packageManager, saveDev: true })
 
   outro(
     pc.bgCyan(
