@@ -1,4 +1,4 @@
-import type { PackageManger } from 'src/types/index.js'
+import type { PackageManger } from '../types/index.js'
 
 import fs from 'node:fs/promises'
 
