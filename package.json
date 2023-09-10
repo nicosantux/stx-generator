@@ -7,9 +7,20 @@
     "name": "Nicolás Santuccio",
     "email": "nico.santuccio@gmail.com"
   },
-  "description": "",
-  "repository": "",
-  "keywords": [],
+  "description": "Generators for bootstrapping your project configurations.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nicosantux/stx-generator"
+  },
+  "keywords": [
+    "generator",
+    "react",
+    "next",
+    "node",
+    "vscode",
+    "husky",
+    "github"
+  ],
   "license": "ISC",
   "bin": {
     "stx-generator": "./build/src/index.js"
