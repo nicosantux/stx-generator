@@ -3,14 +3,16 @@ import type { Option, PackageManger } from '../types/index.js'
 import { confirm, select, spinner as createSpinner, outro } from '@clack/prompts'
 import pc from 'picocolors'
 
+import { commitlint } from '../templates/commitlint.template.js'
 import {
-  addGeneratorFiles,
+  addFile,
   execCmd,
   getProjectPackageManager,
   handleCancelPrompt,
   installDependencies,
 } from '../utils/index.js'
 import { PACKAGE_MANAGER } from '../constants/index.js'
+import { huskyDependencies } from '../dependencies/index.js'
 
 export const husky = async () => {
   try {
@@ -43,9 +45,9 @@ export const husky = async () => {
     )
   }
 
-  addGeneratorFiles('husky')
+  await addFile('.commitlintrc.json', commitlint)
 
-  await installDependencies({ generator: 'husky', packageManager })
+  await installDependencies({ dependencies: huskyDependencies, packageManager, saveDev: true })
 
   const spinner = createSpinner()
 

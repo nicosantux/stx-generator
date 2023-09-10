@@ -1,4 +1,4 @@
-import type { Generator } from 'src/types/generator.type.js'
+import type { Generator } from '../types/generator.type.js'
 
 import { githubActions } from './github-actions.generator.js'
 import { husky } from './husky.generator.js'

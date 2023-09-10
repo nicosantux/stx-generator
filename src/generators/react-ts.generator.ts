@@ -5,12 +5,14 @@ import pc from 'picocolors'
 
 import { PACKAGE_MANAGER } from '../constants/index.js'
 import {
-  addGeneratorFiles,
+  addFile,
   addLintAndFormatScripts,
   getProjectPackageManager,
   handleCancelPrompt,
   installDependencies,
 } from '../utils/index.js'
+import { reactDependencies } from '../dependencies/index.js'
+import { eslintIgnore, eslintReact, prettierIgnore, prettierrc } from '../templates/index.js'
 
 export const reactTs = async () => {
   let packageManager = await getProjectPackageManager()
@@ -39,12 +41,20 @@ export const reactTs = async () => {
   )
 
   if (addScripts) {
-    addLintAndFormatScripts()
+    await addLintAndFormatScripts()
   }
 
-  addGeneratorFiles('react-ts', tailwind)
+  if (tailwind) {
+    eslintReact.extends.push('plugin:tailwindcss/recommended')
+    reactDependencies.push('eslint-plugin-tailwindcss')
+  }
 
-  await installDependencies({ generator: 'react-ts', packageManager, tailwind })
+  await addFile('.prettierrc.json', prettierrc)
+  await addFile('.prettierignore', prettierIgnore)
+  await addFile('.eslintrc.json', eslintReact)
+  await addFile('.eslintIgnore', eslintIgnore)
+
+  await installDependencies({ dependencies: reactDependencies, packageManager, saveDev: true })
 
   outro(
     pc.bgCyan(

@@ -5,12 +5,14 @@ import pc from 'picocolors'
 
 import { PACKAGE_MANAGER } from '../constants/index.js'
 import {
-  addGeneratorFiles,
+  addFile,
   addLintAndFormatScripts,
   getProjectPackageManager,
   handleCancelPrompt,
   installDependencies,
 } from '../utils/index.js'
+import { eslintIgnore, eslintNode, prettierIgnore, prettierrc } from '../templates/index.js'
+import { nodeDependencies } from '../dependencies/index.js'
 
 export const nodeTs = async () => {
   let packageManager = await getProjectPackageManager()
@@ -32,12 +34,15 @@ export const nodeTs = async () => {
   )
 
   if (addScripts) {
-    addLintAndFormatScripts()
+    await addLintAndFormatScripts()
   }
 
-  addGeneratorFiles('node-ts')
+  await addFile('.prettierrc.json', prettierrc)
+  await addFile('.prettierignore', prettierIgnore)
+  await addFile('.eslintrc.json', eslintNode)
+  await addFile('.eslintIgnore', eslintIgnore)
 
-  await installDependencies({ generator: 'node-ts', packageManager })
+  await installDependencies({ dependencies: nodeDependencies, packageManager, saveDev: true })
 
   outro(
     pc.bgCyan(
