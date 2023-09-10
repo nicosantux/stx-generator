@@ -3,7 +3,13 @@ import type { Option, PackageManger } from '../types/index.js'
 import { confirm, select, outro } from '@clack/prompts'
 import pc from 'picocolors'
 
-import { prettierIgnore, prettierrc, eslintIgnore, eslintNext } from '../templates/index.js'
+import {
+  prettierIgnore,
+  prettierrc,
+  eslintIgnore,
+  eslintNext,
+  editorconfig,
+} from '../templates/index.js'
 import { PACKAGE_MANAGER } from '../constants/index.js'
 import {
   addFile,
@@ -49,6 +55,7 @@ export const nextTs = async () => {
     nextDependencies.push('eslint-plugin-tailwindcss')
   }
 
+  await addFile('.editorconfig', editorconfig)
   await addFile('.prettierrc.json', prettierrc)
   await addFile('.prettierignore', prettierIgnore)
   await addFile('.eslintrc.json', eslintNext)

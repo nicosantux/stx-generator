@@ -12,7 +12,13 @@ import {
   installDependencies,
 } from '../utils/index.js'
 import { reactDependencies } from '../dependencies/index.js'
-import { eslintIgnore, eslintReact, prettierIgnore, prettierrc } from '../templates/index.js'
+import {
+  editorconfig,
+  eslintIgnore,
+  eslintReact,
+  prettierIgnore,
+  prettierrc,
+} from '../templates/index.js'
 
 export const reactTs = async () => {
   let packageManager = await getProjectPackageManager()
@@ -49,6 +55,7 @@ export const reactTs = async () => {
     reactDependencies.push('eslint-plugin-tailwindcss')
   }
 
+  await addFile('.editorconfig', editorconfig)
   await addFile('.prettierrc.json', prettierrc)
   await addFile('.prettierignore', prettierIgnore)
   await addFile('.eslintrc.json', eslintReact)

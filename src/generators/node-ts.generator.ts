@@ -11,7 +11,13 @@ import {
   handleCancelPrompt,
   installDependencies,
 } from '../utils/index.js'
-import { eslintIgnore, eslintNode, prettierIgnore, prettierrc } from '../templates/index.js'
+import {
+  editorconfig,
+  eslintIgnore,
+  eslintNode,
+  prettierIgnore,
+  prettierrc,
+} from '../templates/index.js'
 import { nodeDependencies } from '../dependencies/index.js'
 
 export const nodeTs = async () => {
@@ -37,6 +43,7 @@ export const nodeTs = async () => {
     await addLintAndFormatScripts()
   }
 
+  await addFile('.editorconfig', editorconfig)
   await addFile('.prettierrc.json', prettierrc)
   await addFile('.prettierignore', prettierIgnore)
   await addFile('.eslintrc.json', eslintNode)
