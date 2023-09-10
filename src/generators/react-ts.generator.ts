@@ -52,7 +52,7 @@ export const reactTs = async () => {
   await addFile('.prettierrc.json', prettierrc)
   await addFile('.prettierignore', prettierIgnore)
   await addFile('.eslintrc.json', eslintReact)
-  await addFile('.eslintIgnore', eslintIgnore)
+  await addFile('.eslintignore', eslintIgnore)
 
   await installDependencies({ dependencies: reactDependencies, packageManager, saveDev: true })
 

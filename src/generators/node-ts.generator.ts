@@ -40,7 +40,7 @@ export const nodeTs = async () => {
   await addFile('.prettierrc.json', prettierrc)
   await addFile('.prettierignore', prettierIgnore)
   await addFile('.eslintrc.json', eslintNode)
-  await addFile('.eslintIgnore', eslintIgnore)
+  await addFile('.eslintignore', eslintIgnore)
 
   await installDependencies({ dependencies: nodeDependencies, packageManager, saveDev: true })
 
