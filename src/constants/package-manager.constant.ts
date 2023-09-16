@@ -1,1 +1,1 @@
-export const PACKAGE_MANAGER = ['npm', 'pnpm', 'yarn'] as const
+export const PACKAGE_MANAGER = ['bun', 'npm', 'pnpm', 'yarn'] as const
