@@ -19,11 +19,12 @@ export const installDependencies = async ({
   const spinner = createSpinner()
 
   const installCmd = packageManager === 'npm' ? 'install' : 'add'
+  const saveExact = packageManager === 'bun' ? '--exact' : '-E'
 
   spinner.start(`Installing dependencies via ${packageManager}`)
 
   await execCmd(
-    `${packageManager} ${installCmd} ${dependencies.join(' ')} -E ${saveDev ? '-D' : ''}`,
+    `${packageManager} ${installCmd} ${dependencies.join(' ')} ${saveExact} ${saveDev ? '-D' : ''}`,
   )
 
   spinner.stop(
