@@ -4,7 +4,7 @@ package-lock.json
 pnpm-lock.yaml
 yarn.lock`
 
-export const prettierrc = {
+export const prettierrc: Record<string, string | number | boolean | string[]> = {
   arrowParens: 'always',
   bracketSameLine: false,
   bracketSpacing: true,

@@ -3,7 +3,7 @@ import type { GithubWorkflow, Option } from '../types/index.js'
 import fs from 'node:fs/promises'
 
 import { multiselect, outro } from '@clack/prompts'
-import pc from 'picocolors'
+import colors from 'picocolors'
 
 import { addGithubWorkflow, handleCancelPrompt } from '../utils/index.js'
 import { GITHUB_WORKFLOWS } from '../constants/index.js'
@@ -27,8 +27,8 @@ export const githubActions = async () => {
   }
 
   outro(
-    pc.bgCyan(
-      pc.black(
+    colors.bgCyan(
+      colors.black(
         ` ${new Intl.ListFormat('en', { style: 'long', type: 'conjunction' }).format(
           ghActions,
         )} workflow has been added `,

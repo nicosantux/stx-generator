@@ -3,13 +3,13 @@
 import type { Generator, Option } from './types/index.js'
 
 import { intro, select } from '@clack/prompts'
-import pc from 'picocolors'
+import colors from 'picocolors'
 
 import { handleCancelPrompt } from './utils/index.js'
 import { GENERATORS_OPTIONS } from './constants/generator.constant.js'
 import { RUN_GENERATOR } from './generators/index.js'
 
-intro(pc.bgCyan(pc.black(' Welcome to Santux Generator! ')))
+intro(colors.bgCyan(colors.black(' Welcome to Santux Generator! ')))
 
 const option = handleCancelPrompt(
   await select<Option<Generator>[], Generator>({

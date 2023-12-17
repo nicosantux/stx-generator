@@ -59,7 +59,7 @@ export const husky = async () => {
 
   await execCmd('npm pkg set scripts.commitlint="commitlint --edit"')
 
-  const cmd = 'npx husky add .husky/commit-msg "pkg run commitlint \\${1}"'
+  const cmd = "npx husky add .husky/commit-msg 'pkg run commitlint ${1}'"
 
   await execCmd(cmd.replace('pkg', packageManager))
 
