@@ -1,7 +1,7 @@
 import type { PackageManger } from '../types/index.js'
 
 import { spinner as createSpinner } from '@clack/prompts'
-import pc from 'picocolors'
+import colors from 'picocolors'
 
 import { execCmd } from './index.js'
 
@@ -28,8 +28,8 @@ export const installDependencies = async ({
   )
 
   spinner.stop(
-    `${pc.bgCyan(pc.black(' Dependencies installed: '))}
-${pc.gray('│')}
-${dependencies.map((dep) => `${pc.gray('│ ')} ${dep}`).join('\n')}`,
+    `${colors.bgCyan(colors.black(' Dependencies installed: '))}
+${colors.gray('│')}
+${dependencies.map((dep) => `${colors.gray('│ ')} ${dep}`).join('\n')}`,
   )
 }

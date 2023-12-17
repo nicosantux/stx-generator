@@ -1,7 +1,7 @@
 import type { Option, PackageManger } from '../types/index.js'
 
 import { confirm, select, outro } from '@clack/prompts'
-import pc from 'picocolors'
+import colors from 'picocolors'
 
 import { PACKAGE_MANAGER } from '../constants/index.js'
 import {
@@ -51,8 +51,8 @@ export const reactTs = async () => {
   }
 
   if (tailwind) {
-    eslintReact.extends.push('plugin:tailwindcss/recommended')
-    reactDependencies.push('eslint-plugin-tailwindcss')
+    prettierrc.plugins = ['prettier-plugin-tailwindcss']
+    reactDependencies.push('prettier-plugin-tailwindcss')
   }
 
   await addFile('.editorconfig', editorconfig)
@@ -64,8 +64,8 @@ export const reactTs = async () => {
   await installDependencies({ dependencies: reactDependencies, packageManager, saveDev: true })
 
   outro(
-    pc.bgCyan(
-      pc.black(
+    colors.bgCyan(
+      colors.black(
         ' Added .editorconfig, .eslintrc.json, .eslintingore, .prettierrc, .prettierignore ',
       ),
     ),

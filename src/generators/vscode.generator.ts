@@ -1,6 +1,6 @@
 import fs from 'node:fs/promises'
 
-import pc from 'picocolors'
+import colors from 'picocolors'
 import { confirm, outro } from '@clack/prompts'
 
 import { extensions, settings } from '../templates/index.js'
@@ -24,8 +24,8 @@ export const vscode = async () => {
   await addFile('.vscode/extensions.json', extensions)
 
   outro(
-    pc.bgCyan(
-      pc.black(' settings.json and extensions.json have been added to the .vscode folder '),
+    colors.bgCyan(
+      colors.black(' settings.json and extensions.json have been added to the .vscode folder '),
     ),
   )
 }

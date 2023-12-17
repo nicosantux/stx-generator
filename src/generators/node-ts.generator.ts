@@ -1,7 +1,7 @@
 import type { Option, PackageManger } from '../types/index.js'
 
 import { confirm, select, outro } from '@clack/prompts'
-import pc from 'picocolors'
+import colors from 'picocolors'
 
 import { PACKAGE_MANAGER } from '../constants/index.js'
 import {
@@ -52,8 +52,8 @@ export const nodeTs = async () => {
   await installDependencies({ dependencies: nodeDependencies, packageManager, saveDev: true })
 
   outro(
-    pc.bgCyan(
-      pc.black(
+    colors.bgCyan(
+      colors.black(
         ' Added .editorconfig, .eslintrc.json, .eslintingore, .prettierrc, .prettierignore ',
       ),
     ),
