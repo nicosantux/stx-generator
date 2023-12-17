@@ -24,6 +24,12 @@ yarn:
 yarn dlx stx-generator@latest
 ```
 
+bun:
+
+```bash
+bunx stx-generator@latest
+```
+
 ## Available generators.
 
 - Github Actions.
