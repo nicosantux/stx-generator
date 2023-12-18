@@ -2,7 +2,7 @@
 
 Generators for bootstrapping your project configurations.
 
-## Usage.
+## Usage
 
 If you want to use these generators you can run the following command:
 
@@ -30,7 +30,7 @@ bun:
 bunx stx-generator@latest
 ```
 
-## Available generators.
+## Available generators
 
 - Github Actions.
 - Husky.
