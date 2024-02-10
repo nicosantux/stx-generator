@@ -23,7 +23,7 @@ jobs:
       # that runs on: tag. (Using the GitHub token would
       # not run the workflow to prevent infinite recursion)
       - name: 🎯 Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           ssh-key: ${{ secrets.DEPLOY_KEY }}
 
