@@ -23,7 +23,7 @@ jobs:
       # that runs on: tag. (Using the GitHub token would
       # not run the workflow to prevent infinite recursion)
       - name: 🎯 Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           ssh-key: \${{ secrets.DEPLOY_KEY }}
 
@@ -52,10 +52,10 @@ jobs:
 
     steps:
       - name: 🎯 Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: 🔧 Setup pnpm
-        uses: pnpm/action-setup@v2
+        uses: pnpm/action-setup@v3
         with:
           version: 8
           run_install: |
@@ -66,7 +66,7 @@ jobs:
         run: pnpm build
 
       - name: 🚀 Publish to npm
-        uses: JS-DevTools/npm-publish@v2
+        uses: JS-DevTools/npm-publish@v3
         with:
           token: \${{ secrets.NPM_TOKEN }}
 
@@ -78,7 +78,7 @@ jobs:
       contents: write
     steps:
       - name: 🎯 Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: 🔥 Create Release
         run: gh release create \${{ github.ref }} --generate-notes
@@ -104,10 +104,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: 🎯 Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: 🔧 Setup pnpm
-        uses: pnpm/action-setup@v2
+        uses: pnpm/action-setup@v3
         with:
           version: 8
           run_install: |
@@ -121,10 +121,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: 🎯 Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: 🔧 Setup pnpm
-        uses: pnpm/action-setup@v2
+        uses: pnpm/action-setup@v3
         with:
           version: 8
           run_install: |
@@ -139,10 +139,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: 🎯 Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: 🔧 Setup pnpm
-        uses: pnpm/action-setup@v2
+        uses: pnpm/action-setup@v3
         with:
           version: 8
           run_install: |
