@@ -1,161 +1,68 @@
-export const eslintIgnore = `build
-dist
+import type { Generator } from '../types/index.js'
+
+import { ESLINT_CONFIG } from './eslint/index.js'
+
+export const eslintIgnore = `*.config.*
+build
 coverage
+dist
 dist
 node_modules`
 
-export const eslintNext = {
-  env: {
-    browser: true,
-    es2023: true,
-    node: true,
-  },
-  extends: [
-    'eslint:recommended',
-    'next',
-    'next/core-web-vitals',
-    'plugin:@typescript-eslint/recommended',
-    'prettier',
-  ],
-  plugins: ['react', 'import', '@typescript-eslint'],
-  parser: '@typescript-eslint/parser',
-  parserOptions: {
-    ecmaFeatures: {
-      jsx: true,
+export const createEslintConfig = (generator: Extract<Generator, 'next' | 'node' | 'react'>) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const config: Record<string, any> = {
+    env: { es2023: true },
+    extends: [
+      'eslint:recommended',
+      'prettier',
+      'plugin:@typescript-eslint/recommended-type-checked',
+      'plugin:@typescript-eslint/strict-type-checked',
+      'plugin:@typescript-eslint/stylistic-type-checked',
+    ],
+    parser: '@typescript-eslint/parser',
+    parserOptions: { project: true, ecmaVersion: 'latest', sourceType: 'module' },
+    plugins: ['@stylistic', '@typescript-eslint', 'import', 'unicorn'],
+    reportUnusedDisableDirectives: true,
+    rules: {
+      ...ESLINT_CONFIG.vanillaRules,
+      ...ESLINT_CONFIG.importRules,
+      ...ESLINT_CONFIG.stylisticRules,
+      ...ESLINT_CONFIG.typescriptRules,
+      ...ESLINT_CONFIG.unicornRules,
     },
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-  },
-  settings: {
-    react: {
-      version: 'detect',
-    },
-  },
-  rules: {
-    'react/prop-types': 'off',
-    'no-console': 'warn',
-    eqeqeq: 'error',
-    '@typescript-eslint/no-unused-vars': [
-      'error',
-      { args: 'after-used', ignoreRestSiblings: false, argsIgnorePattern: '^_.*?$' },
-    ],
-    'import/order': [
-      'warn',
-      {
-        groups: ['type', 'builtin', 'object', 'external', 'internal', 'parent', 'sibling', 'index'],
-        pathGroups: [{ pattern: '~/**', group: 'external', position: 'after' }],
-        'newlines-between': 'always',
-      },
-    ],
-    'react/self-closing-comp': 'warn',
-    'react/jsx-sort-props': ['warn', { noSortAlphabetically: false }],
-    'padding-line-between-statements': [
-      'warn',
-      { blankLine: 'always', prev: 'directive', next: '*' },
-      { blankLine: 'always', prev: 'import', next: ['block-like', 'export', 'const', 'let'] },
-      { blankLine: 'always', prev: '*', next: 'block-like' },
-      { blankLine: 'always', prev: 'block-like', next: '*' },
-      { blankLine: 'always', prev: '*', next: 'return' },
-      { blankLine: 'always', prev: ['const', 'let', 'var'], next: '*' },
-      { blankLine: 'any', prev: ['const', 'let', 'var'], next: ['const', 'let', 'var'] },
-    ],
-  },
-}
+  }
 
-export const eslintNode = {
-  env: {
-    es2023: true,
-    node: true,
-  },
-  extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended', 'prettier'],
-  plugins: ['import', '@typescript-eslint'],
-  parser: '@typescript-eslint/parser',
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-  },
-  rules: {
-    'no-console': 'warn',
-    eqeqeq: 'error',
-    '@typescript-eslint/no-unused-vars': [
-      'error',
-      { args: 'after-used', ignoreRestSiblings: false, argsIgnorePattern: '^_.*?$' },
-    ],
-    'import/order': [
-      'warn',
-      {
-        groups: ['type', 'builtin', 'object', 'external', 'internal', 'parent', 'sibling', 'index'],
-        pathGroups: [{ pattern: '~/**', group: 'external', position: 'after' }],
-        'newlines-between': 'always',
-      },
-    ],
-    'padding-line-between-statements': [
-      'warn',
-      { blankLine: 'always', prev: 'directive', next: '*' },
-      { blankLine: 'always', prev: 'import', next: ['block-like', 'export', 'const', 'let'] },
-      { blankLine: 'always', prev: '*', next: 'block-like' },
-      { blankLine: 'always', prev: 'block-like', next: '*' },
-      { blankLine: 'always', prev: '*', next: 'return' },
-      { blankLine: 'always', prev: ['const', 'let', 'var'], next: '*' },
-      { blankLine: 'any', prev: ['const', 'let', 'var'], next: ['const', 'let', 'var'] },
-    ],
-  },
-}
+  Object.entries(ESLINT_CONFIG[generator]).forEach(([key, value]) => {
+    if (config[key]) {
+      config[key] = Array.isArray(config[key])
+        ? config[key].concat(value)
+        : // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          { ...config[key], ...(value as any) }
+    } else {
+      config[key] = value
+    }
+  })
 
-export const eslintReact = {
-  env: {
-    browser: true,
-    es2023: true,
-  },
-  extends: [
-    'eslint:recommended',
-    'plugin:@typescript-eslint/recommended',
-    'plugin:react-hooks/recommended',
-    'plugin:react/recommended',
-    'plugin:react/jsx-runtime',
-    'prettier',
-  ],
-  plugins: ['react', 'import', '@typescript-eslint'],
-  parser: '@typescript-eslint/parser',
-  parserOptions: {
-    ecmaFeatures: {
-      jsx: true,
-    },
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-  },
-  settings: {
-    react: {
-      version: 'detect',
-    },
-  },
-  rules: {
-    'react/prop-types': 'off',
-    'no-console': 'warn',
-    eqeqeq: 'error',
-    '@typescript-eslint/no-unused-vars': [
-      'error',
-      { args: 'after-used', ignoreRestSiblings: false, argsIgnorePattern: '^_.*?$' },
-    ],
-    'import/order': [
-      'warn',
-      {
-        groups: ['type', 'builtin', 'object', 'external', 'internal', 'parent', 'sibling', 'index'],
-        pathGroups: [{ pattern: '~/**', group: 'external', position: 'after' }],
-        'newlines-between': 'always',
-      },
-    ],
-    'react/self-closing-comp': 'warn',
-    'react/jsx-sort-props': ['warn', { noSortAlphabetically: false }],
-    'padding-line-between-statements': [
-      'warn',
-      { blankLine: 'always', prev: 'directive', next: '*' },
-      { blankLine: 'always', prev: 'import', next: ['block-like', 'export', 'const', 'let'] },
-      { blankLine: 'always', prev: '*', next: 'block-like' },
-      { blankLine: 'always', prev: 'block-like', next: '*' },
-      { blankLine: 'always', prev: '*', next: 'return' },
-      { blankLine: 'always', prev: ['const', 'let', 'var'], next: '*' },
-      { blankLine: 'any', prev: ['const', 'let', 'var'], next: ['const', 'let', 'var'] },
-    ],
-  },
+  const nextImportPaths = {
+    pattern: 'next/**',
+    group: 'builtin',
+    position: 'before',
+  }
+
+  const reactImportPaths = {
+    pattern: 'react',
+    group: 'builtin',
+    position: 'before',
+  }
+
+  if (generator === 'next') {
+    config.rules['import/order'][1].pathGroups.push(nextImportPaths, reactImportPaths)
+  }
+
+  if (generator === 'react') {
+    config.rules['import/order'][1].pathGroups.push(reactImportPaths)
+  }
+
+  return config
 }
