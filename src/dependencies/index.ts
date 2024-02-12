@@ -1,33 +1,25 @@
 export const huskyDependencies = ['husky', '@commitlint/cli', '@commitlint/config-conventional']
 
-export const nextDependencies = [
+const baseEslintDependencies = [
+  '@stylistic/eslint-plugin',
   '@typescript-eslint/eslint-plugin',
   '@typescript-eslint/parser',
   'eslint',
+  'eslint-config-prettier',
+  'eslint-plugin-import',
+  'eslint-plugin-unicorn',
+  'prettier',
+]
+
+export const nextDependencies = baseEslintDependencies.concat([
   'eslint-config-next',
-  'eslint-config-prettier',
-  'eslint-plugin-import',
   'eslint-plugin-react',
   'eslint-plugin-react-hooks',
-  'prettier',
-]
+])
 
-export const nodeDependencies = [
-  '@typescript-eslint/eslint-plugin',
-  '@typescript-eslint/parser',
-  'eslint',
-  'eslint-config-prettier',
-  'eslint-plugin-import',
-  'prettier',
-]
+export const nodeDependencies = baseEslintDependencies
 
-export const reactDependencies = [
-  '@typescript-eslint/eslint-plugin',
-  '@typescript-eslint/parser',
-  'eslint',
-  'eslint-config-prettier',
-  'eslint-plugin-import',
+export const reactDependencies = baseEslintDependencies.concat([
   'eslint-plugin-react',
   'eslint-plugin-react-hooks',
-  'prettier',
-]
+])
