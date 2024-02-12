@@ -5,9 +5,9 @@ import type { Generator, Option } from './types/index.js'
 import { intro, select } from '@clack/prompts'
 import colors from 'picocolors'
 
-import { handleCancelPrompt } from './utils/index.js'
 import { GENERATORS_OPTIONS } from './constants/generator.constant.js'
 import { RUN_GENERATOR } from './generators/index.js'
+import { handleCancelPrompt } from './utils/index.js'
 
 intro(colors.bgCyan(colors.black(' Welcome to Santux Generator! ')))
 
