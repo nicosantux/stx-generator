@@ -1,9 +1,17 @@
 import type { Option, PackageManger } from '../types/index.js'
 
-import { confirm, select, outro } from '@clack/prompts'
+import { confirm, outro, select } from '@clack/prompts'
 import colors from 'picocolors'
 
 import { PACKAGE_MANAGER } from '../constants/index.js'
+import { reactDependencies } from '../dependencies/index.js'
+import {
+  createEslintConfig,
+  editorconfig,
+  eslintIgnore,
+  prettierIgnore,
+  prettierrc,
+} from '../templates/index.js'
 import {
   addFile,
   addLintAndFormatScripts,
@@ -11,16 +19,8 @@ import {
   handleCancelPrompt,
   installDependencies,
 } from '../utils/index.js'
-import { reactDependencies } from '../dependencies/index.js'
-import {
-  editorconfig,
-  eslintIgnore,
-  eslintReact,
-  prettierIgnore,
-  prettierrc,
-} from '../templates/index.js'
 
-export const reactTs = async () => {
+export const react = async () => {
   let packageManager = await getProjectPackageManager()
 
   if (!packageManager) {
@@ -58,7 +58,7 @@ export const reactTs = async () => {
   await addFile('.editorconfig', editorconfig)
   await addFile('.prettierrc.json', prettierrc)
   await addFile('.prettierignore', prettierIgnore)
-  await addFile('.eslintrc.json', eslintReact)
+  await addFile('.eslintrc.json', createEslintConfig('react'))
   await addFile('.eslintignore', eslintIgnore)
 
   await installDependencies({ dependencies: reactDependencies, packageManager, saveDev: true })

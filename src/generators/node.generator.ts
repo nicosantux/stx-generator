@@ -1,16 +1,17 @@
 import type { Option, PackageManger } from '../types/index.js'
 
-import { confirm, select, outro } from '@clack/prompts'
+import { confirm, outro, select } from '@clack/prompts'
 import colors from 'picocolors'
 
+import { PACKAGE_MANAGER } from '../constants/index.js'
+import { nodeDependencies } from '../dependencies/index.js'
 import {
+  createEslintConfig,
+  editorconfig,
+  eslintIgnore,
   prettierIgnore,
   prettierrc,
-  eslintIgnore,
-  eslintNext,
-  editorconfig,
 } from '../templates/index.js'
-import { PACKAGE_MANAGER } from '../constants/index.js'
 import {
   addFile,
   addLintAndFormatScripts,
@@ -18,9 +19,8 @@ import {
   handleCancelPrompt,
   installDependencies,
 } from '../utils/index.js'
-import { nextDependencies } from '../dependencies/index.js'
 
-export const nextTs = async () => {
+export const node = async () => {
   let packageManager = await getProjectPackageManager()
 
   if (!packageManager) {
@@ -39,29 +39,17 @@ export const nextTs = async () => {
     }),
   )
 
-  const tailwind = handleCancelPrompt(
-    await confirm({
-      message: 'Does your project use Tailwindcss?',
-      initialValue: true,
-    }),
-  )
-
   if (addScripts) {
     await addLintAndFormatScripts()
-  }
-
-  if (tailwind) {
-    prettierrc.plugins = ['prettier-plugin-tailwindcss']
-    nextDependencies.push('prettier-plugin-tailwindcss')
   }
 
   await addFile('.editorconfig', editorconfig)
   await addFile('.prettierrc.json', prettierrc)
   await addFile('.prettierignore', prettierIgnore)
-  await addFile('.eslintrc.json', eslintNext)
+  await addFile('.eslintrc.json', createEslintConfig('node'))
   await addFile('.eslintignore', eslintIgnore)
 
-  await installDependencies({ dependencies: nextDependencies, packageManager, saveDev: true })
+  await installDependencies({ dependencies: nodeDependencies, packageManager, saveDev: true })
 
   outro(
     colors.bgCyan(
