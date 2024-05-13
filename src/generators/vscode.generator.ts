@@ -1,7 +1,7 @@
 import fs from 'node:fs/promises'
 
-import colors from 'picocolors'
 import { confirm, outro } from '@clack/prompts'
+import colors from 'picocolors'
 
 import { extensions, settings } from '../templates/index.js'
 import { addFile, handleCancelPrompt } from '../utils/index.js'
