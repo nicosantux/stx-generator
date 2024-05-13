@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import type { Generator } from '../types/index.js'
 
 import { ESLINT_CONFIG } from './eslint/index.js'
@@ -37,31 +40,26 @@ export const createEslintConfig = (generator: Extract<Generator, 'next' | 'node'
     if (config[key]) {
       config[key] = Array.isArray(config[key])
         ? config[key].concat(value)
-        : // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          { ...config[key], ...(value as any) }
+        : { ...config[key], ...value }
     } else {
       config[key] = value
     }
   })
 
-  const nextImportPaths = {
-    pattern: 'next/**',
-    group: 'builtin',
-    position: 'before',
-  }
-
-  const reactImportPaths = {
-    pattern: 'react',
-    group: 'builtin',
-    position: 'before',
-  }
-
   if (generator === 'next') {
-    config.rules['import/order'][1].pathGroups.push(nextImportPaths, reactImportPaths)
+    config.rules['import/order'][1].pathGroups.push({
+      pattern: '{next,next/**,react,react-dom,react-dom/**}',
+      group: 'builtin',
+      position: 'before',
+    })
   }
 
   if (generator === 'react') {
-    config.rules['import/order'][1].pathGroups.push(reactImportPaths)
+    config.rules['import/order'][1].pathGroups.push({
+      pattern: '{react,react-dom,react-dom/**}',
+      group: 'builtin',
+      position: 'before',
+    })
   }
 
   return config
