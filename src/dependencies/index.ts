@@ -4,7 +4,7 @@ const baseEslintDependencies = [
   '@stylistic/eslint-plugin',
   '@typescript-eslint/eslint-plugin',
   '@typescript-eslint/parser',
-  'eslint',
+  'eslint@8.56.0',
   'eslint-config-prettier',
   'eslint-plugin-import',
   'eslint-plugin-unicorn',
