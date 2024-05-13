@@ -1,23 +1,23 @@
 #!/usr/bin/env node
 
-import type { Generator, Option } from './types/index.js'
+import { Argument, Command } from '@commander-js/extra-typings'
 
-import { intro, select } from '@clack/prompts'
-import colors from 'picocolors'
-
-import { GENERATORS_OPTIONS } from './constants/generator.constant.js'
 import { RUN_GENERATOR } from './generators/index.js'
-import { handleCancelPrompt } from './utils/index.js'
+import { GENERATOR } from './types/generator.type.js'
+import { launchGenerator, showIntro } from './utils/index.js'
 
-intro(colors.bgCyan(colors.black(' Welcome to Santux Generator! ')))
+const program = new Command('stx-generator')
+  .description('Generators for bootstrapping your project configurations.')
+  .action(launchGenerator)
 
-const option = handleCancelPrompt(
-  await select<Option<Generator>[], Generator>({
-    message: 'Select the generator you want to run',
-    options: Object.entries(GENERATORS_OPTIONS).map(
-      ([value, label]) => ({ label, value }) as { label: string; value: Generator },
-    ),
-  }),
-)
+program
+  .command('run')
+  .description('Run a specific generator')
+  .addArgument(new Argument('<generator>', 'The generator to run').choices(GENERATOR))
+  .action(async (value) => {
+    showIntro()
+    await RUN_GENERATOR[value]()
+  })
+  .showHelpAfterError('\nRun stx-generator run -h for help\n')
 
-RUN_GENERATOR[option]()
+program.parse(process.argv)
