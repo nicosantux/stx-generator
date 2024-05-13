@@ -1,4 +1,4 @@
-export type Option<Value extends string> = {
+export interface Option<Value extends string> {
   hint?: string
   label?: string
   value: Value

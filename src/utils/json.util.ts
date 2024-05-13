@@ -1,7 +1,7 @@
 import fs from 'node:fs/promises'
 
 export const readJSON = async (path: string) => {
-  return JSON.parse(await fs.readFile(path, 'utf8'))
+  return JSON.parse(await fs.readFile(path, 'utf8')) as string
 }
 
 export const writeJSON = async (destination: string, file: unknown) => {

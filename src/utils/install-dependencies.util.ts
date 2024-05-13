@@ -5,7 +5,7 @@ import colors from 'picocolors'
 
 import { execCmd } from './index.js'
 
-type InstallDependencies = {
+interface InstallDependencies {
   dependencies: string[]
   packageManager: PackageManger
   saveDev?: boolean

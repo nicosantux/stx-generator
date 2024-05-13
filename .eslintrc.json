@@ -1,52 +1,189 @@
 {
   "env": {
-    "es2022": true,
+    "es2023": true,
     "node": true
   },
   "extends": [
-    "eslint-config-prettier",
     "eslint:recommended",
-    "plugin:@typescript-eslint/recommended"
+    "prettier",
+    "plugin:@typescript-eslint/recommended-type-checked",
+    "plugin:@typescript-eslint/strict-type-checked",
+    "plugin:@typescript-eslint/stylistic-type-checked"
   ],
-  "plugins": ["import", "@typescript-eslint"],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
+    "project": true,
     "ecmaVersion": "latest",
     "sourceType": "module"
   },
+  "plugins": ["@stylistic", "@typescript-eslint", "import", "unicorn"],
+  "reportUnusedDisableDirectives": true,
   "rules": {
-    "no-console": "warn",
-    "eqeqeq": "error",
-    "@typescript-eslint/no-unused-vars": [
+    "eqeqeq": [
       "error",
-      { "args": "after-used", "ignoreRestSiblings": false, "argsIgnorePattern": "^_.*?$" }
+      "always",
+      {
+        "null": "ignore"
+      }
     ],
+    "no-await-in-loop": "error",
+    "no-console": "error",
+    "no-else-return": "warn",
+    "no-implicit-coercion": "error",
+    "no-param-reassign": "error",
+    "no-return-await": "error",
+    "no-self-compare": "error",
+    "no-undef-init": "warn",
+    "no-unneeded-ternary": "error",
+    "no-var": "error",
+    "object-shorthand": "warn",
+    "prefer-const": "warn",
+    "prefer-object-spread": "warn",
+    "prefer-rest-params": "error",
+    "prefer-spread": "error",
+    "prefer-template": "warn",
+    "import/first": "error",
+    "import/newline-after-import": "warn",
+    "import/no-cycle": "error",
+    "import/no-extraneous-dependencies": [
+      "error",
+      {
+        "includeTypes": true
+      }
+    ],
+    "import/no-mutable-exports": "error",
+    "import/no-self-import": "error",
+    "import/no-useless-path-segments": "error",
     "import/order": [
       "warn",
       {
-        "groups": [
-          "type",
-          "builtin",
-          "object",
-          "external",
-          "internal",
-          "parent",
-          "sibling",
-          "index"
+        "alphabetize": {
+          "order": "asc",
+          "caseInsensitive": true
+        },
+        "groups": ["type", "builtin", "external", "internal", "parent", "sibling", "index"],
+        "newlines-between": "always",
+        "pathGroups": [
+          {
+            "pattern": "@/**",
+            "group": "internal",
+            "position": "after"
+          }
         ],
-        "pathGroups": [{ "pattern": "~/**", "group": "external", "position": "after" }],
-        "newlines-between": "always"
+        "pathGroupsExcludedImportTypes": ["builtin", "internal"],
+        "warnOnUnassignedImports": true
       }
     ],
     "padding-line-between-statements": [
       "warn",
-      { "blankLine": "always", "prev": "directive", "next": "*" },
-      { "blankLine": "always", "prev": "import", "next": ["block-like", "export", "const", "let"] },
-      { "blankLine": "always", "prev": "*", "next": "block-like" },
-      { "blankLine": "always", "prev": "block-like", "next": "*" },
-      { "blankLine": "always", "prev": "*", "next": "return" },
-      { "blankLine": "always", "prev": ["const", "let", "var"], "next": "*" },
-      { "blankLine": "any", "prev": ["const", "let", "var"], "next": ["const", "let", "var"] }
-    ]
+      {
+        "blankLine": "always",
+        "prev": "directive",
+        "next": "*"
+      },
+      {
+        "blankLine": "always",
+        "prev": "*",
+        "next": "block-like"
+      },
+      {
+        "blankLine": "always",
+        "prev": "block-like",
+        "next": "*"
+      },
+      {
+        "blankLine": "always",
+        "prev": "*",
+        "next": "return"
+      },
+      {
+        "blankLine": "always",
+        "prev": ["const", "let", "var"],
+        "next": "*"
+      },
+      {
+        "blankLine": "any",
+        "prev": ["singleline-const", "singleline-let", "singleline-var"],
+        "next": ["singleline-const", "singleline-let", "singleline-var"]
+      }
+    ],
+    "@typescript-eslint/consistent-type-exports": [
+      "warn",
+      {
+        "fixMixedExportsWithInlineTypeSpecifier": true
+      }
+    ],
+    "@typescript-eslint/consistent-type-imports": [
+      "warn",
+      {
+        "fixStyle": "inline-type-imports"
+      }
+    ],
+    "@typescript-eslint/default-param-last": "error",
+    "@typescript-eslint/member-ordering": [
+      "error",
+      {
+        "interfaces": {
+          "order": "natural-case-insensitive"
+        }
+      }
+    ],
+    "@typescript-eslint/method-signature-style": "warn",
+    "@typescript-eslint/naming-convention": [
+      "error",
+      {
+        "format": ["PascalCase"],
+        "selector": ["typeLike", "enumMember"]
+      },
+      {
+        "custom": {
+          "match": false,
+          "regex": "^I[A-Z]|^(Interface|Props|State)$"
+        },
+        "format": ["PascalCase"],
+        "selector": "interface"
+      }
+    ],
+    "@typescript-eslint/no-confusing-void-expression": [
+      "error",
+      {
+        "ignoreArrowShorthand": true
+      }
+    ],
+    "@typescript-eslint/no-loop-func": "error",
+    "@typescript-eslint/no-redundant-type-constituents": "warn",
+    "@typescript-eslint/no-unnecessary-qualifier": "warn",
+    "@typescript-eslint/no-unused-vars": [
+      "error",
+      {
+        "args": "after-used",
+        "argsIgnorePattern": "^_",
+        "ignoreRestSiblings": false,
+        "vars": "all",
+        "varsIgnorePattern": "^_"
+      }
+    ],
+    "@typescript-eslint/prefer-nullish-coalescing": [
+      "error",
+      {
+        "ignorePrimitives": {
+          "bigint": true,
+          "boolean": true,
+          "number": true,
+          "string": true
+        }
+      }
+    ],
+    "@typescript-eslint/require-array-sort-compare": "error",
+    "@typescript-eslint/switch-exhaustiveness-check": "error",
+    "unicorn/error-message": "error",
+    "unicorn/filename-case": [
+      "error",
+      {
+        "case": "kebabCase"
+      }
+    ],
+    "unicorn/no-empty-file": "error",
+    "unicorn/prefer-node-protocol": "warn"
   }
 }

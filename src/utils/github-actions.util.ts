@@ -4,13 +4,23 @@ import { text } from '@clack/prompts'
 
 import { bumpVersion, createRelease, deployment } from '../templates/index.js'
 
-import { handleCancelPrompt } from './handle-cancel-prompt.util.js'
 import { addFile } from './add-file.util.js'
+import { handleCancelPrompt } from './handle-cancel-prompt.util.js'
 
 export const addGithubWorkflow = async (workflow: GithubWorkflow) => {
-  if (workflow === 'bump-version') return await addBumpVersionWorkflow()
-  if (workflow === 'create-release') return await addCreateReleaseWorkflow()
-  if (workflow === 'deployment') return await addDeploymentWorkflow()
+  if (workflow === 'bump-version') {
+    await addBumpVersionWorkflow()
+
+    return
+  }
+
+  if (workflow === 'create-release') {
+    await addCreateReleaseWorkflow()
+
+    return
+  }
+
+  await addDeploymentWorkflow()
 }
 
 const addBumpVersionWorkflow = async () => {

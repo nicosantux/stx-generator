@@ -5,8 +5,8 @@ import fs from 'node:fs/promises'
 import { multiselect, outro } from '@clack/prompts'
 import colors from 'picocolors'
 
-import { addGithubWorkflow, handleCancelPrompt } from '../utils/index.js'
 import { GITHUB_WORKFLOWS } from '../constants/index.js'
+import { addGithubWorkflow, handleCancelPrompt } from '../utils/index.js'
 
 export const githubActions = async () => {
   const ghActions = handleCancelPrompt(
@@ -22,9 +22,13 @@ export const githubActions = async () => {
   await fs.mkdir('.github', { recursive: true })
   await fs.mkdir('.github/workflows', { recursive: true })
 
+  const workflowsPromises = []
+
   for (const workflow of ghActions) {
-    await addGithubWorkflow(workflow)
+    workflowsPromises.push(addGithubWorkflow(workflow))
   }
+
+  await Promise.all(workflowsPromises)
 
   outro(
     colors.bgCyan(
